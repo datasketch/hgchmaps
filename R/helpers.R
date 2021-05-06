@@ -21,3 +21,24 @@ function_agg <- function (df, agg, to_agg, ...) {
   dd
 
 }
+
+#' @export
+percentage_data <- function (data, agg_var, by_col = NULL) {
+
+  if (is.null(agg_var)) stop("You must have a numeric column")
+
+  data[[agg_var]] <- as.numeric(data[[agg_var]])
+  agg_var_t <- rlang::sym(agg_var)
+
+  if (is.null(by_col)) {
+    df <- data %>%
+      mutate(..percentage = (!!agg_var_t/sum(!!agg_var_t, na.rm = TRUE))*100)
+  } else {
+    df <- data %>%
+      dplyr::group_by_(by_col) %>%
+      dplyr::mutate(..percentage = (!!agg_var_t/sum(!!agg_var_t, na.rm = TRUE))*100)
+  }
+  df
+}
+
+

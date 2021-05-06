@@ -11,6 +11,6 @@ function_agg(df, agg, to_agg, ...)
 }
 \details{
 This is a generic function: methods can be defined for it directly or via the
-\code{\link{Summary}} group generic. For this to work properly, the arguments
+\code{\link{across}} group generic. For this to work properly, the arguments
 \code{...} should be unnamed, and dispatch is on the first argument.
 }
