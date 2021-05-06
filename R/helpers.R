@@ -42,3 +42,15 @@ percentage_data <- function (data, agg_var, by_col = NULL) {
 }
 
 
+#' @export
+collapse_data <- function (data, ...) {
+  group_var <- rlang::enquos(...)
+  print(group_var)
+  func_paste <- function(x) paste(unique(x), collapse = '. ')
+  df <- data %>%
+    dplyr::group_by(!!!group_var) %>%
+    dplyr::summarise_each(dplyr::funs(func_paste))
+  df
+}
+
+
