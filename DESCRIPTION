@@ -1,15 +1,29 @@
 Package: hgchmaps
-Title: What the Package Does (One Line, Title Case)
+Title: A highcharter map wrapper
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Author: Datasketch
+Maintainer: datasketch <datasketch@datasketch.co>
+Description: A wrapper for highcharter
+BugReports: https://github.com/datasketch/hgchmaps/issues
+Depends:
+    R (>= 3.0.0),
+    highcharter (>= 0.4.0.9999),
+    tidyverse,
+    homodatum,
+    makeup
+Imports:
+    paletero,
+    dsvizopts,
+    d3.format
+VignetteBuilder: 
+    knitr
+Remotes:
+    datasketch/homodatum,
+    datasketch/makeup,
+    datasketch/paletero,
+    datasketch/dsvizopts,
+    dreamRs/d3.format
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
