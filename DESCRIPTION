@@ -10,7 +10,9 @@ Depends:
     highcharter (>= 0.4.0.9999),
     tidyverse,
     homodatum,
-    makeup
+    makeup,
+    geodata,
+    sf
 Imports:
     paletero,
     dsvizopts,

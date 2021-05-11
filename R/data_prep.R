@@ -17,6 +17,12 @@ data_prep <- function (data, ftype, agg, ptage_col, ...) {
   frtype <- f$frtype
   dic <- f$dic
   dic$id <- names(d)
+
+  dic <- dic %>% bind_rows(
+    data.frame(id = c("..percentage", "..count", "..domain"),
+               label = c("Percentage", "Count", "Domain"))
+  )
+
   ncols_d <- ncol(d)
 
   ftype_vec <- stringr::str_split(ftype,pattern = "-") %>% unlist()
@@ -88,13 +94,13 @@ data_prep <- function (data, ftype, agg, ptage_col, ...) {
 
   }
 
-
+   dd$..domain <- dd[[agg_var]]
 
 
   l <- list(
-    data = dd#,
-    # dic,
-    # nms,
+    data = dd,
+    dic = dic,
+    nms = nms
     # nms_tooltip
   )
 
