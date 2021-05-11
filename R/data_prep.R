@@ -1,6 +1,7 @@
 #' @export
 data_prep <- function (data, ftype, agg, ptage_col, ...) {
 
+  if (is.null(data)) return()
 
   f <- homodatum::fringe(data)
   nms <- homodatum::fringe_labels(f)
