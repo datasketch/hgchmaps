@@ -117,13 +117,13 @@ data_prep <- function (data, ftype, agg, ptage_col, group_extra_num = TRUE, ...)
   }
 
   dd$value <- dd[[agg_var]]
-
+  nms_tooltip <- setNames(dic_p$label, dic_p$id)
 
   l <- list(
     data = dd,
     dic = dic,
-    nms = nms
-    # nms_tooltip
+    nms = nms,
+    nms_tooltip = nms_tooltip #default tooltip when this is null
   )
 
 

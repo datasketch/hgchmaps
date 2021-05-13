@@ -9,6 +9,7 @@ hgch_tooltip <- function(nms, label_ftype = NULL, tooltip) {
   label_ftype_clean <- gsub("[\r\n]", " ", label_ftype_clean)
   nms_names <- names(nms)
 
+  if (tooltip == "") tooltip <- NULL
   if (is.null(tooltip)) {
     tooltip  <- paste0(purrr::map(seq_along(label_ftype), function(i) {
       paste0(label_ftype[i], ": {", label_ftype_clean[i], "}")

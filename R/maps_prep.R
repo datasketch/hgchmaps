@@ -14,6 +14,13 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
                              formats = list(sample_num = opts$style$format_sample_num,
                                             sample_cat = opts$style$format_sample_cat))
 
+  # add info tooltip in data
+  data_format <- data_format %>%
+    dplyr::mutate(labels = glue::glue(
+      hgch_tooltip(nms = list_d$nms,
+                   label_ftype = list_d$nms_tooltip,
+                   tooltip = opts$chart$tooltip)) %>%
+        lapply(htmltools::HTML))
 
   # coordinate transformation
   shape_transform <- st_transform(shape ,
