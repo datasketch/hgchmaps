@@ -27,12 +27,7 @@ shape_info <- function (map_name, ftype, by_col) {
   }
 
   topoInfo$name_alt <- iconv(tolower(topoInfo$name_alt), to = "ASCII//TRANSLIT")
-  shape <- topoInfo %>% st_set_crs(3857)
+  topoInfo <- topoInfo %>% st_set_crs(3857)
 
   topoInfo
-}
-
-#' @export
-data_join <- function(shape_info, data_list, ...) {
-
 }

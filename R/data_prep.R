@@ -1,5 +1,5 @@
 #' @export
-data_prep <- function (data, ftype, agg, ptage_col, ...) {
+data_prep <- function (data, ftype, agg, ptage_col, group_extra_num = TRUE, ...) {
 
   if (is.null(data)) return()
 
@@ -20,8 +20,9 @@ data_prep <- function (data, ftype, agg, ptage_col, ...) {
   dic$id <- names(d)
 
   dic <- dic %>% bind_rows(
-    data.frame(id = c("..percentage", "..count", "..domain"),
-               label = c("Percentage", "Count", "Domain"))
+    data.frame(id = c("..percentage", "..count", "value"),
+               label = c("Percentage", "Count", "Domain"),
+               hdType = rep("Num", 3))
   )
 
   ncols_d <- ncol(d)
@@ -30,9 +31,6 @@ data_prep <- function (data, ftype, agg, ptage_col, ...) {
   ftype_length <- length(ftype_vec)
 
   add_cols <- ncols_d != ftype_length
-
-
-
 
   dd <- d[,1:ftype_length]
   dic_p <- dic %>% dplyr::filter(id %in% names(dd))
@@ -80,8 +78,31 @@ data_prep <- function (data, ftype, agg, ptage_col, ...) {
 
   if (add_cols) {
     join_cols <- dic_p$id[1:length(var_group)]
-    extra_cols <- c(join_cols, setdiff(dic$id, dic_p$id))
-    dj <- d[extra_cols]
+    extra_cols <- setdiff(dic$id, c(dic_p$id, "..percentage", "..count", "value"))
+    dj <- d[c(join_cols, extra_cols)]
+
+    # extra num cols
+    dic_extra <- dic %>% filter(id %in% extra_cols)
+    var_num_extra <- dic_extra$id[dic_extra$hdType == "Num"]
+    var_cat_extra <- dic_extra$id[dic_extra$hdType == "Cat"]
+    if (!identical(var_cat_extra, character())) {
+      dic$hdType[dic$id %in% var_cat_extra] <- "Cat.."
+    }
+
+    if (!identical(var_num_extra, character())) {
+      # if (group_extra_num) {
+      #   if (length(join_cols) == 1) {
+      #     dj_s <- simple_summary(dj, agg, to_agg = var_num_extra, a)
+      #   } else if (length(join_cols) == 2) {
+      #     dj_s <- simple_summary(dj, agg, to_agg = var_num_extra, a, b)
+      #   } else if (length(join_cols) == 3) {
+      #     dj_s <- simple_summary(dj, agg, to_agg = var_num_extra, a, b, c)
+      #   }
+      #   dj <- dj %>% left_join(dj_s)
+      # } else {
+      dic$hdType[dic$id %in% var_num_extra] <- "Cat.."
+      #}
+    }
 
     if (length(join_cols) == 1) {
       dj <- collapse_data(dj, a)
@@ -95,7 +116,7 @@ data_prep <- function (data, ftype, agg, ptage_col, ...) {
 
   }
 
-   dd$..domain <- dd[[agg_var]]
+  dd$value <- dd[[agg_var]]
 
 
   l <- list(
@@ -106,8 +127,40 @@ data_prep <- function (data, ftype, agg, ptage_col, ...) {
   )
 
 
-
-
-
 }
 
+
+#' @export
+format_prep <- function(data, dic, formats) {
+
+  if (is.null(data)) return()
+
+  var_nums <- grep("Num", dic$hdType)
+
+  if (!identical(var_nums, integer())) {
+    var_nums <- dic$id[var_nums]
+
+    l_nums <- purrr::map(var_nums, function(f_nums){
+      data[[paste0(f_nums, "_label")]] <<- makeup::makeup_num(as.numeric(data[[f_nums]]), sample = formats$sample_num)
+    })}
+
+  var_cats <- grep("^Cat$|Gnm|Gcd", dic$hdType)
+  if (!identical(var_cats, integer())) {
+    var_cats <- dic$id[var_cats]
+    l_nums <- purrr::map(var_cats, function(f_cats){
+      data[[paste0(f_cats, "_label")]] <<- makeup::makeup_chr(as.character(data[[f_cats]]), sample = formats$sample_cat)
+    })}
+
+  var_cats_extra <- grep("Cat..", dic$hdType)
+
+  if (!identical(var_cats_extra, integer())) {
+    var_cats_extra <- dic$id[var_cats_extra]
+
+    l_nums <- purrr::map(var_cats_extra, function(f_cats..){
+      data[[paste0(f_cats.., "_label")]] <<- makeup::makeup_chr(as.character(data[[f_cats..]]), sample = NULL)
+    })}
+
+
+  data
+
+}

@@ -10,7 +10,7 @@ test_that("data_prep() works with geoname or geocode", {
   out <- data_prep(data = df, ftype = "Gnm", agg= "sum", ptage_col = NULL)
   out <- out$data
 
-  df <- sample_data("Gcd-Num")
+  df <- sample_data("Gcd-Num-Num")
   out <- data_prep(data = df, ftype = "Gcd", agg= "sum", ptage_col = NULL)
   out <- out$data
 
@@ -21,7 +21,7 @@ test_that("data_prep() works with geoname or geocode", {
 
 
   df <- sample_data("Gnm-Cat-Num")
-  out <- data_prep(data = df, ftype = "Gcd", agg= "sum", ptage_col = NULL)
+  out <- data_prep(data = df, ftype = "Gnm", agg= "sum", ptage_col = NULL)
   out <- out$data
 
 

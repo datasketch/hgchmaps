@@ -23,6 +23,15 @@ function_agg <- function (df, agg, to_agg, ...) {
 }
 
 #' @export
+simple_summary <- function(df, agg, to_agg, ...) {
+  group_var <- rlang::enquos(...)
+  dd <- df %>%
+    dplyr::group_by(!!!group_var) %>%
+    dplyr::summarise(dplyr::across(to_agg, ~ dsvizopts::agg(agg, .x)))
+  dd
+}
+
+#' @export
 percentage_data <- function (data, agg_var, by_col = NULL) {
 
   if (is.null(agg_var)) stop("You must have a numeric column")
@@ -53,4 +62,14 @@ collapse_data <- function (data, ...) {
   df
 }
 
+#' @export
+hgch_basic_choropleth <- function() {
+  opts <- dsvizopts::dsviz_defaults()
+  data <- sample_data("Gnm-Num", 300)
+  highchart(type = "map") %>%
+    hc_add_series(mapData =  shape_json,
+                  data = list_d$data,
+                  joinBy =  c('name', 'a')) %>%
+    hc_colorAxis(minColor = "#FACFEA", maxColor = "#000000")
+}
 
