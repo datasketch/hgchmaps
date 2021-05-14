@@ -63,13 +63,15 @@ collapse_data <- function (data, ...) {
 }
 
 #' @export
-hgch_basic_choropleth <- function() {
+hgch_basic_choropleth <- function(shape_json, data) {
   opts <- dsvizopts::dsviz_defaults()
-  data <- sample_data("Gnm-Num", 300)
+
   highchart(type = "map") %>%
     hc_add_series(mapData =  shape_json,
-                  data = list_d$data,
-                  joinBy =  c('name', 'a')) %>%
-    hc_colorAxis(minColor = "#FACFEA", maxColor = "#000000")
+                  data = data,
+                  joinBy =  c('name', 'a'),
+                  showInLegend = FALSE) %>%
+    hc_tooltip(useHTML = TRUE,
+               formatter = JS(paste0("function () {return this.point.labels;}")))
 }
 

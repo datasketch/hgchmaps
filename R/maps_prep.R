@@ -30,8 +30,8 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
 
 
   l <- list (
-    geoInfo <- shape_json,
-    data <- list_d$data
+    geoInfo = shape_json,
+    data = data_format
   )
 
 }

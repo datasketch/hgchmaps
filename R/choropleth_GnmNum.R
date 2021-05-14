@@ -25,4 +25,5 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
   opts <- dsvizopts::merge_dsviz_options(...)
   if (!is.null(data)) data[[1]] <- as_Gnm(data[[1]])
   l <- hgchmaps_prep(data = data, opts = opts, ftype="Gnm-Num")
+
 }
