@@ -144,6 +144,15 @@ format_prep <- function(data, dic, formats) {
       data[[paste0(f_nums, "_label")]] <<- makeup::makeup_num(as.numeric(data[[f_nums]]), sample = formats$sample_num)
     })}
 
+  var_nums <- grep("Glt|Gln", dic$hdType)
+
+  if (!identical(var_nums, integer())) {
+    var_nums <- dic$id[var_nums]
+
+    l_nums <- purrr::map(var_nums, function(f_nums){
+      data[[paste0(f_nums, "_label")]] <<- as.numeric(data[[f_nums]])
+    })}
+
   var_cats <- grep("^Cat$|Gnm|Gcd", dic$hdType)
   if (!identical(var_cats, integer())) {
     var_cats <- dic$id[var_cats]
