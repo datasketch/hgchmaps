@@ -33,7 +33,18 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
       joinBy = l$by_col,
       borderColor = opts$theme$border_color,
       nullColor = opts$theme$na_color,
-      showInLegend = FALSE
+      showInLegend = FALSE,
+      dataLabels = list (
+        enabled = l$datalabel$dataLabels_show,
+        format = l$datalabel$dataLabels_format_sample %||% "{point.value}",
+        style = list(
+          fontSize = paste0(l$datalabel$dataLabels_size %||% 11, "px"),
+          color = l$datalabel$dataLabels_color %||% "#222222",
+          textShadow = "none",
+          textOutline = ifelse(l$datalabel$dataLabels_text_outline,
+                               "1px contrast", "none")
+        )
+      )
     ) %>%
     hc_colorAxis(
       stops = color_stops(colors = l$palette_colors)

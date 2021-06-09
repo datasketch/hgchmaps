@@ -36,10 +36,6 @@ hgch_theme <- function(opts = NULL){
       colorByPoint = TRUE,
       animation = list(
         duration = opts$animation_duration
-      ),
-      dataLabels = list (
-        enabled = opts$dataLabels_show,
-        format = opts$format_dataLabels
       )
     ),
     legend = list(enabled = opts$legend_show),
