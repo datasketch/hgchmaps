@@ -39,7 +39,8 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
       stops = color_stops(colors = l$palette_colors)
     ) %>%
     hc_tooltip(useHTML = TRUE,
-               formatter = JS(paste0("function () {return this.point.labels;}")))
+               formatter = JS(paste0("function () {return this.point.labels;}"))) %>%
+    hc_add_theme(hgch_theme(opts = l$theme))
 
 
 }

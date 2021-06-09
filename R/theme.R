@@ -11,7 +11,7 @@
 #' @export
 hgch_theme <- function(opts = NULL){
   message("in theme_datasketch")
-  print(opts)
+
   highcharter::hc_theme(
     colors = opts$palette_colors_sequential,
 
@@ -32,19 +32,19 @@ hgch_theme <- function(opts = NULL){
         fontFamily = opts$text_family,
         fontSize = paste0(opts$text_size, 'px')
       )),
-      series = list(
-        colorByPoint = TRUE,
-        animation = list(
-          duration = opts$animation_duration
-        ),
-        dataLabels = list (
-          enabled = opts$dataLabels_show,
-          format = paste0(opts$cats, opts$format_dataLabels)
-        )
+    series = list(
+      colorByPoint = TRUE,
+      animation = list(
+        duration = opts$animation_duration
       ),
-    map = list(
-      minColor = "#FACFEA",
-      maxColor = "#000000"
-    )
+      dataLabels = list (
+        enabled = opts$dataLabels_show,
+        format = opts$format_dataLabels
+      )
+    ),
+    legend = list(enabled = opts$legend_show),
+    tooltip = list(style = list(width = "350px", whiteSpace = "normal",
+                                fontFamily = opts$tooltip_family %||% opts$text_family,
+                                fontSize = paste0(opts$text_size, "px")))
   )
 }
