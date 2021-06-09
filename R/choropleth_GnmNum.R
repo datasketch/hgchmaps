@@ -26,4 +26,18 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
   if (!is.null(data)) data[[1]] <- as_Gnm(data[[1]])
   l <- hgchmaps_prep(data = data, opts = opts, ftype="Gnm-Num")
 
+  highchart(type = "map") %>%
+    hc_add_series(
+      mapData = l$geoInfo,
+      data = l$data,
+      joinBy = l$by_col,
+      borderColor = opts$theme$border_color,
+      nullColor = opts$theme$na_color,
+      showInLegend = FALSE
+    ) %>%
+    hc_colorAxis(
+      stops = color_stops(colors = l$palette_colors)
+    )
+
+
 }
