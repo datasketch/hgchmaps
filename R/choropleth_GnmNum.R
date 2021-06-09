@@ -44,7 +44,9 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
           textOutline = ifelse(l$datalabel$dataLabels_text_outline,
                                "1px contrast", "none")
         )
-      )
+      ),
+      events = list(click = JS("function(event) {Shiny.onInputChange('hcClicked',  {id:event.point.name, timestamp: new Date().getTime()});}")),
+      cursor= l$shiny$cursor
     ) %>%
     hc_colorAxis(
       stops = color_stops(colors = l$palette_colors)

@@ -58,7 +58,8 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
     by_col = by_col,
     palette_colors = palette_colors,
     theme = opts$theme,
-    datalabel = opts$dataLabels
+    datalabel = opts$dataLabels,
+    shiny = opts$shiny
   )
 
 }
