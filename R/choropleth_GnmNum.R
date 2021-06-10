@@ -45,7 +45,7 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
                                "1px contrast", "none")
         )
       ),
-      events = list(click = JS("function(event) {Shiny.onInputChange('hcClicked',  {id:event.point.name, timestamp: new Date().getTime()});}")),
+      events = list(click = l$shiny$clickFunction),
       cursor= l$shiny$cursor
     ) %>%
     hc_colorAxis(
