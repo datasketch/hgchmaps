@@ -2,7 +2,7 @@
 % Please edit documentation in R/choropleth_GcdNum.R
 \name{hgch_choropleth_GcdNum}
 \alias{hgch_choropleth_GcdNum}
-\title{choropleth chart Gnm Num}
+\title{choropleth chart Gcd Num}
 \usage{
 hgch_choropleth_GcdNum(data = NULL, ...)
 }
