@@ -2,6 +2,7 @@
 
 export(hgch_basic_choropleth)
 export(hgch_basic_points)
+export(hgch_choropleth_GcdNum)
 export(hgch_choropleth_GnmNum)
 export(hgch_theme)
 export(hgchmaps_prep)
