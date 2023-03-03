@@ -31,7 +31,7 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
 
     if (grepl("Gnm|Gcd", ftype)) {
       data_format$name_alt <- iconv(tolower(data_format$a), to = "ASCII//TRANSLIT")
-      all_data <- topoInfo %>% as.data.frame() %>% select(id, name, name_alt, name_label)
+      all_data <- topoInfo %>% as.data.frame() %>% dplyr::select(id, name, name_alt, name_label)
       data_format <- all_data %>% dplyr::left_join(data_format, by = "name_alt")
       # add info tooltip in data
       data_format$labels <- dsdataprep::prep_tooltip(data_format, tooltip = opts$chart$tooltip_template)
@@ -45,10 +45,10 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
   }
 
   # coordinate transformation
-  topoInfo <- topoInfo %>% st_set_crs(3857)
-  shape_transform <- st_transform(topoInfo,
+  topoInfo <- topoInfo %>% sf::st_set_crs(3857)
+  shape_transform <- sf::st_transform(topoInfo,
                                   "+proj=mill +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R_A +datum=WGS84 +units=m +no_defs")
-  shape_json <- geojson_json(shape_transform)
+  shape_json <- geojsonio::geojson_json(shape_transform)
 
   palette_type <-  opts$theme$palette_type %||% "sequential"
   palette_colors <-  opts$theme$palette_colors %||% opts$theme[[paste0("palette_colors_", palette_type)]]

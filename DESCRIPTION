@@ -8,16 +8,19 @@ License: MIT + file LICENSE
 BugReports: https://github.com/datasketch/hgchmaps/issues
 Depends:
     highcharter (>= 0.4.0.9999),
-    homodatum,
     R (>= 3.0.0)
 Imports:
     dplyr,
     dsdataprep,
+    dstools,
     dsvizopts,
     dsvizprep,
+    geojsonio,
     glue,
-    htmltools
+    htmltools,
+    sf
 Suggests: 
+    homodatum,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
