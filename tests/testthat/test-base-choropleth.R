@@ -3,7 +3,7 @@
 
 test_that("hgch_basic_choropleth() works", {
   opts <- dsvizopts::dsviz_defaults()
-  data <- sample_data("Gnm-Num")
+  data <- data.frame(pais = c("Colombia", "Argentina", "Russia"), value = c(10, 20, 30))
   l <- hgchmaps_prep(data = data, opts = opts)
   out <- hgch_basic_choropleth(shape_json = l$geoInfo, data = l$data, by = l$by_col)
   expect_true(all(class(out) %in% c("highchart","htmlwidget")))

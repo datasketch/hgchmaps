@@ -1,8 +1,9 @@
 #' @export
 hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-Num", ...) {
 
+
   # call geographical info
-  shape <- dsvizprep::shape_info(map_name = opts$extra$map_name,
+  shape <- dsvizprep::shape_info(map_name = opts$map$map_name,
                                  ftype = ftype,
                                  by_col = by_col,
                                  addRds = FALSE)
@@ -15,17 +16,17 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
   if (!is.null(data)) {
     list_d <- dsvizprep::data_map_prep(data = data,
                                        ftype = ftype,
-                                       agg =  opts$summarize$agg,
+                                       agg =  opts$prep$agg,
                                        color_by = opts$style$color_by,
                                        more_levels = shape$more_levels,
-                                       ptage_col = opts$postprocess$percentage_col)
+                                       ptage_col = opts$prep$percentage_col)
     # format setting of data being displayed
     data_format <- dsvizprep::format_prep(data = list_d$data,
                                           dic = list_d$dic,
-                                          formats = list(sample_num = opts$style$format_sample_num,
-                                                         sample_cat = opts$style$format_sample_cat,
-                                                         prefix = opts$style$prefix,
-                                                         suffix = opts$style$suffix))
+                                          formats = list(sample_num = opts$prep$format_sample_num,
+                                                         sample_cat = opts$prep$format_sample_cat,
+                                                         prefix = opts$prep$prefix_num,
+                                                         suffix = opts$prep$suffix_num))
 
 
     if (grepl("Gnm|Gcd", ftype)) {
@@ -33,11 +34,11 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
       all_data <- topoInfo %>% as.data.frame() %>% select(id, name, name_alt, name_label)
       data_format <- all_data %>% dplyr::left_join(data_format, by = "name_alt")
       # add info tooltip in data
-      data_format <- agg_tooltip(data = data_format, label_by = opts$extra$map_label_by,nms = list_d$nms, label_ftype = list_d$nms_tooltip, tooltip = opts$chart$tooltip)
+      data_format$labels <- dsdataprep::prep_tooltip(data_format, tooltip = opts$chart$tooltip_template)
     } else {
       topoInfo <- list(topoInfo = topoInfo, data = data_format)
       # add info tooltip in data
-      topoInfo$data <- agg_tooltip(data = topoInfo$data, label_by = opts$extra$map_label_by,nms = list_d$nms, label_ftype = list_d$nms_tooltip, tooltip = opts$chart$tooltip)
+      topoInfo$data$labels <- dsdataprep::prep_tooltip(topoInfo$data, tooltip = opts$chart$tooltip_template)
     }
 
 
@@ -58,7 +59,7 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
     by_col = by_col,
     palette_colors = palette_colors,
     theme = opts$theme,
-    datalabel = opts$dataLabels,
+    datalabel = opts$data_labels,
     shiny = opts$shiny
   )
 

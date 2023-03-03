@@ -35,13 +35,13 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
       nullColor = opts$theme$na_color,
       showInLegend = FALSE,
       dataLabels = list (
-        enabled = l$datalabel$dataLabels_show,
-        format = l$datalabel$dataLabels_format_sample %||% "{point.value}",
+        enabled = l$datalabel$data_labels_show,
+        format = l$datalabel$data_labels_format_sample %||% "{point.value}",
         style = list(
-          fontSize = paste0(l$datalabel$dataLabels_size %||% 11, "px"),
-          color = l$datalabel$dataLabels_color %||% "#222222",
+          fontSize = paste0(l$datalabel$data_labels_size %||% 11, "px"),
+          color = l$datalabel$data_labels_color %||% "#222222",
           textShadow = "none",
-          textOutline = ifelse(l$datalabel$dataLabels_text_outline,
+          textOutline = ifelse(l$datalabel$data_labels_text_outline,
                                "1px contrast", "none")
         )
       ),
