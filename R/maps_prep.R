@@ -34,7 +34,10 @@ hgchmaps_prep <- function(data = NULL, opts = NULL, by_col = "name", ftype="Gnm-
       all_data <- topoInfo %>% as.data.frame() %>% dplyr::select(id, name, name_alt, name_label)
       data_format <- all_data %>% dplyr::left_join(data_format, by = "name_alt")
       # add info tooltip in data
-      data_format$labels <- dsdataprep::prep_tooltip(data_format, tooltip = opts$chart$tooltip_template)
+      list_d$nms <- setNames(names(data_format), names(data_format))
+      data_format <- agg_tooltip(data = data_format, label_by = opts$map$map_label_by,
+                                        nms = list_d$nms, label_ftype = list_d$nms_tooltip,
+                                        tooltip = opts$chart$tooltip_template)
     } else {
       topoInfo <- list(topoInfo = topoInfo, data = data_format)
       # add info tooltip in data
