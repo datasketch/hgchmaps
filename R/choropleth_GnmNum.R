@@ -26,7 +26,10 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
   #if (!is.null(data)) data[[1]] <- homodatum::as_Gnm(data[[1]])
   l <- hgchmaps_prep(data = data, opts = opts, ftype="Gnm-Num")
 
-  highchart(type = "map") %>%
+  highchart(type = "map") |>
+    hc_title(text = opts$titles$title) |>
+    hc_subtitle(text = opts$titles$subtitle)  |>
+    #hc_credits(enabled = opts$titles$caption_show, text = opts$titles$caption) |>
     hc_add_series(
       mapData = l$geoInfo,
       data = l$data,
@@ -47,12 +50,12 @@ hgch_choropleth_GnmNum <- function(data = NULL, ...) {
       ),
       events = list(click = JS(paste0("function(event) {Shiny.onInputChange('", l$shiny$shiny_input_name, "', {id:event.point.name, timestamp: new Date().getTime()});}"))),
       cursor = l$shiny$shiny_cursor
-    ) %>%
+    ) |>
     hc_colorAxis(
       stops = color_stops(colors = l$palette_colors)
-    ) %>%
+    ) |>
     hc_tooltip(useHTML = TRUE,
-               formatter = JS(paste0("function () {return this.point.labels;}"))) %>%
+               formatter = JS(paste0("function () {return this.point.labels;}"))) |>
     hc_add_theme(hgch_theme(opts = l$theme))
 
 
@@ -87,7 +90,7 @@ hgch_choropleth_Gnm <- function(data = NULL, ...) {
   if (!is.null(data)) data[[1]] <- as_Gnm(data[[1]])
   l <- hgchmaps_prep(data = data, opts = opts, ftype="Gnm")
 
-  highchart(type = "map") %>%
+  highchart(type = "map") |>
     hc_add_series(
       mapData = l$geoInfo,
       data = l$data,
@@ -108,12 +111,12 @@ hgch_choropleth_Gnm <- function(data = NULL, ...) {
       ),
       events = list(click = l$shiny$clickFunction),
       cursor= l$shiny$cursor
-    ) %>%
+    ) |>
     hc_colorAxis(
       stops = color_stops(colors = l$palette_colors)
-    ) %>%
+    ) |>
     hc_tooltip(useHTML = TRUE,
-               formatter = JS(paste0("function () {return this.point.labels;}"))) %>%
+               formatter = JS(paste0("function () {return this.point.labels;}"))) |>
     hc_add_theme(hgch_theme(opts = l$theme))
 
 
