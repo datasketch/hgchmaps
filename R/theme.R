@@ -32,6 +32,16 @@ hgch_theme <- function(opts = NULL){
         fontFamily = opts$text_family,
         fontSize = paste0(opts$text_size, 'px')
       )),
+    title = list(
+      useHTML = TRUE,
+      align = opts$title_align,
+      style = list(
+        fontFamily = opts$title_family,
+        fontSize = paste0(opts$title_size, 'px'),
+        color = opts$title_color,
+        fontWeight = opts$title_weight
+      )
+    ),
     series = list(
       colorByPoint = TRUE,
       animation = list(
