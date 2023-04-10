@@ -17,8 +17,8 @@ hgch_choropleth <- function (data = NULL,
 
   choropleth <- highchart(type = "map") |>
     hc_titles(opts = opts$titles) |>
-  hc_choropleth(data = data_draw, opts = opts$general_opts) #|>
+    hc_choropleth(data = data_draw, opts = opts$general_opts) |>
+    hc_add_theme(hgch_theme(opts = opts$theme))
 
-  #hc_add_theme(hgch_theme(opts = opts$theme))
   choropleth
 }

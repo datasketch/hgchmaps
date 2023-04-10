@@ -4,4 +4,10 @@ test_that("Choropleth", {
   opts <- dsvizopts::dsviz_default_opts()
   opts$map$map_name <- "col_departments"
   hgch_choropleth(data, var_gnm = "depto", var_num = "valor", opts = opts)
+  hgch_choropleth(data,
+                  var_gnm = "depto",
+                  var_num = "valor",
+                  map_name = "col_departments",
+                  background_color = "black")
 })
+
