@@ -1,6 +1,6 @@
 Package: hgchmaps
 Title: A highcharter map wrapper
-Version: 1.0.1
+Version: 1.1.1
 Author: Datasketch
 Maintainer: datasketch <datasketch@datasketch.co>
 Description: A wrapper for highcharter
