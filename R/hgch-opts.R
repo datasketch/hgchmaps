@@ -31,6 +31,7 @@ plot_opts <- function(viz = NULL, frType = NULL, ...) {
   )
 
   data_opts <- list(
+    map_name = opts$map$map_name,
     tooltip_template = opts$chart$tooltip_template,
     na_label = opts$prep$na_label,
     format_sample_num = opts$prep$format_sample_num,
@@ -40,7 +41,6 @@ plot_opts <- function(viz = NULL, frType = NULL, ...) {
     format_sample_cat = opts$prep$format_sample_cat,
     format_sample_dat = opts$prep$format_sample_dat,
     color_by = opts$prep$color_by,
-    palette_colors = opts$theme$palette_colors %||% opts$theme$palette_colors_categorical,
     palette_type = NULL,
     palette = NULL,
     order = opts$prep$order,
@@ -54,11 +54,11 @@ plot_opts <- function(viz = NULL, frType = NULL, ...) {
   general_opts <- list(
     plot_type = plot_type,
     legend_show = opts$theme$legend_show,
-    legend_title = opts$titles$legend_title
+    legend_title = opts$titles$legend_title,
+    palette_colors = opts$theme$palette_colors %||% opts$theme$palette_colors_sequential
   )
 
   general_opts <- modifyList(general_opts, extra_opts)
-  opts$theme$palette_colors <- opts$theme$palette_colors %||% opts$theme$palette_colors_categorical
 
   list(titles = titles,
        data_opts = data_opts,
