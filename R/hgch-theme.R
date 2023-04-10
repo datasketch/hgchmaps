@@ -72,6 +72,7 @@ hgch_theme <- function(opts = NULL) {
       )
     ),
     legend = list(
+      #enabled = opts$chart$legend_show,
       backgroundColor = opts$legend_background,
       borderColor = opts$legend_backgroundBorderColor,
       borderWidth = opts$legend_backgroundWidth,
