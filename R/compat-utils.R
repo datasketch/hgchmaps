@@ -25,22 +25,22 @@ frtype_viz <- function(var_gnm = NULL,
   frtype
 }
 
-data_draw <- function(data = NULL,
-                      dic = NULL,
-                      var_geo = NULL,
-                      var_num = NULL,
-                      opts = NULL) {
-
+data_map_draw <- function(data = NULL,
+                          dic = NULL,
+                          var_geo = NULL,
+                          var_num = NULL,
+                          opts = NULL) {
 
   map_name <- opts$map_name
-
-  if(is.null(map_name))
-    stop("No map name provided, see available_maps()")
+  if(is.null(map_name)) stop("No map name provided, see available_maps()")
 
   tj <- geodato::gd_tj(map_name)
-
+  print("topojson")
 
   if(!is.null(data)){
+
+    data_join <- data[,c(var_geo, var_num)]
+
     if (length(var_geo) == 1) {
       col <- geodato::parse_col(data, var_geo)
       data$..var <- data[[col]]
@@ -49,7 +49,10 @@ data_draw <- function(data = NULL,
     if (!"value" %in% names(data)) {
       data$value <- data[[var_num]]
     }
-    data <- geodato::gd_match(data, map_name)
+
+    data_join <- geodato::gd_match(data_join, map_name)
+    dgeo <- tj |>
+      dplyr::left_join(data_join, by = c(id = "..gd_id", name = "..gd_name"))
 
     if (!"..labels" %in% names(data)) {
       data$label <- dsdataprep::prep_tooltip(data = data,
@@ -67,12 +70,12 @@ data_draw <- function(data = NULL,
                                              format_cat = opts$format_sample_cat,
                                              format_date = opts$format_sample_dat)
     }
-    dgeo <- tj |>
-      dplyr::left_join(data, by = c(id = "..gd_id", name = "..gd_name"))
 
   } else{
     dgeo <- tj
   }
+
+
 
   dgeo <- dgeo %>% sf::st_set_crs(3857)
   shape_transform <- sf::st_transform(dgeo,

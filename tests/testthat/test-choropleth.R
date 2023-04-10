@@ -10,5 +10,12 @@ test_that("Choropleth", {
                   map_name = "col_departments",
                   background_color = "black")
   hgch_choropleth_GnmNum(data, map_name = "col_departments")
+
+  data <- data.frame(pais = c("Colombia", "Argentina", "Brazil", "Mexico"),
+                     Mean = runif(4, 10, 100))
+  hgch_choropleth(data = data, var_gnm = "pais", var_num = "Mean",
+                  map_name = "world_countries_latin_america_caribbean")
+
+
 })
 
