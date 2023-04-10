@@ -1,27 +1,13 @@
 Package: hgchmaps
 Title: A highcharter map wrapper
-Version: 0.0.0.9000
+Version: 0.0.1
 Author: Datasketch
 Maintainer: datasketch <datasketch@datasketch.co>
 Description: A wrapper for highcharter
 License: MIT + file LICENSE
 BugReports: https://github.com/datasketch/hgchmaps/issues
 Depends:
-    highcharter (>= 0.4.0.9999),
     R (>= 3.0.0)
-Imports:
-    dplyr,
-    dsdataprep,
-    dstools,
-    dsvizopts,
-    dsvizprep,
-    geojsonio,
-    glue,
-    htmltools,
-    sf
-Suggests: 
-    homodatum,
-    testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
 Remotes:
