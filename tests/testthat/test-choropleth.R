@@ -9,5 +9,6 @@ test_that("Choropleth", {
                   var_num = "valor",
                   map_name = "col_departments",
                   background_color = "black")
+  hgch_choropleth_GnmNum(data, map_name = "col_departments")
 })
 
