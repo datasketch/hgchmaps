@@ -9,11 +9,21 @@ BugReports: https://github.com/datasketch/hgchmaps/issues
 Depends:
     highcharter (>= 0.4.0.9999),
     R (>= 3.0.0)
+Imports: 
+    dplyr,
+    dsdataprep,
+    dstools,
+    dsvizopts,
+    geodato,
+    geojsonio,
+    sf
+Suggests: 
+    shiny,
+    testthat
 VignetteBuilder: 
     knitr
 Remotes:
-    datasketch/dsvizopts,
-    datasketch/homodatum
+    datasketch/dsvizopts
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
