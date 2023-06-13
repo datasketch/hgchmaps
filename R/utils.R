@@ -5,6 +5,10 @@ gd_tj_transform <- function(tj) {
   geojsonio::geojson_json(shape_transform)
 }
 
+hc_titles <- function (hc, opts) {
+  hc |>
+    hc_title(text = opts$title)
+}
 
 data_tooltip_opts <- function(opts = NULL) {
 
