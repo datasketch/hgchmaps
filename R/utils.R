@@ -13,7 +13,7 @@ hc_titles <- function (hc, opts) {
 data_tooltip_opts <- function(opts = NULL) {
 
   if (is.na(opts$tooltip_template)) opts$tooltip_template <- NULL
-
+  if (all(is.na(opts$legend_cat_order))) opts$legend_cat_order <- NULL
   list(
     map_name = opts$map_name,
     tooltip_template = opts$tooltip_template,
