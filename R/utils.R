@@ -20,7 +20,8 @@ data_tooltip_opts <- function(opts = NULL) {
     format_sample_cat = NULL, #opts$format_sample_cat,
     format_sample_num = opts$format_sample_num,
     format_sample_dat = NULL,#opts$format_sample_dat,
-    na_label = opts$na_label
+    na_label = opts$na_label,
+    legend_cat_order = opts$legend_cat_order
   )
 
 }

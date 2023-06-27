@@ -15,7 +15,6 @@ hgch_theme <- function(opts = NULL) {
       color = opts$title_color,
       fontWeight = opts$title_weight
       )
-
     )
   )
 }
