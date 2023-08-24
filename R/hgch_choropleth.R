@@ -14,7 +14,7 @@ hgch_choropleth <- function(data, var, ...) {
     |> unlist())
   hc_data <- data_hc_map(data, var, opts)
 
-  highchart(type = "map") |>
+ h <- highchart(type = "map") |>
     hc_titles(opts = titles) |>
     hc_add_series(
       mapData = hc_data$tj,
@@ -27,5 +27,15 @@ hgch_choropleth <- function(data, var, ...) {
     hc_tooltip(useHTML = TRUE,
                formatter = JS(paste0("function () {return this.point.label;}"))) |>
     hc_add_theme(hgch_theme(opts = theme))
+
+ if (opts$shiny_clickable) {
+   h <- h |> hc_plotOptions(series = list(
+     cursor =  "pointer",
+     events = list(
+       click = JS("function(event) {Shiny.onInputChange('hcClicked', {id:event.point.name, timestamp: new Date().getTime()});}")
+     )
+   ))
+ }
+ h
 
 }
